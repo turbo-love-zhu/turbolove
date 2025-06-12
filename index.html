@@ -123,9 +123,7 @@
     <!-- Photo -->
     
 	<!-- Main Content -->
-    <div id="main-content" class="container px-5 mt-5">
-        <!-- Content will be loaded here -->
-    </div>
+      <iframe id="main-content-iframe" class="container px-5 mt-5" src="static/html/home.html" style="width: 100%; border: none; height: 100%;"></iframe>
 
 	
     <!-- Footer-->
@@ -141,18 +139,9 @@
     </footer>
     <script>
         function loadContent(page) {
-            const contentDiv = document.getElementById('main-content');
-            fetch(`static/html/${page}.html`)
-                .then(response => response.text())
-                .then(data => {
-                    contentDiv.innerHTML = data;
-                })
-                .catch(error => {
-                    contentDiv.innerHTML = `<p>加载失败，请检查网络连接。</p>`;
-                });
+            const iframe = document.getElementById('main-content-iframe');
+            iframe.src = `static/html/${page}.html`;
         }
-        // Load home content by default
-        loadContent('home');
     </script>
 </body>
 </html>
