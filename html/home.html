@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Loader</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div id="content-container" class="container px-5 mt5 md5">
+        <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="home">
+            <div class="container px-5">
+                <header>
+                    <h2 id="home-subtitle">Home</h2>
+                </header>
+                <div class="main-body" id="home-md"></div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+			
+		 // 定义一个函数来加载 Markdown 文件
+		async function loadMarkdownFile(filePath) {
+			try {
+				// 使用 fetch API 从服务器加载 Markdown 文件
+				const response = await fetch(filePath);
+				if (!response.ok) {
+					throw new Error(`Failed to load file: ${response.statusText}`);
+				}
+				// 获取 Markdown 文件的内容
+				const markdownContent = await response.text();
+				marked.setOptions({
+					gfm: true,
+					tables: true
+				});
+				// 使用 marked.js 将 Markdown 转换为 HTML
+				const htmlContent = marked(markdownContent);
+				// 将渲染后的 HTML 内容插入到页面中
+				document.getElementById('home-md').innerHTML = htmlContent;
+			} catch (error) {
+				console.error('Error loading or rendering Markdown file:', error);
+			}
+		}
+		// 调用函数加载 Markdown 文件
+		// 假设你的 Markdown 文件路径是 'home.md'
+		loadMarkdownFile('contents/home.md');
+    </script>
+</body>
+</html>

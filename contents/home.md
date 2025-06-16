@@ -4,3 +4,10 @@
 
 #### 教育经历
 徐州医科大学
+
+| test1 | test1 | test1                |
+| ----- | ----- | -------------------- |
+| test1 | test1 | test1                |
+| test1 | test1 | test1test1test1test1 |
+| test1 | test1 | test1                |
+

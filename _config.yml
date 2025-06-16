@@ -1,3 +1,5 @@
-theme: jekyll-theme-cayman
+theme: minima
 title: Welcome to TurboLove's HomePage
 description: Feel free to bookmark this to keep an eye...
+plugins:
+  - jekyll-feed

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -75,7 +76,7 @@
     <!-- Core JS-->
     <script type="text/javascript" src="static/js/scripts.js"></script>
     <script type="text/javascript" src="static/js/js-yaml.min.js"></script>
-
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -83,7 +84,6 @@
     <nav class="header navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
         <div class="container px-5">
             <a id="page-top-title" class="navbar-brand fw-bold" href="#page-top"></a>
-            <!-- <a href="#page-top"><img src="static/assets/img/CUMT_LOGO.svg" style="width: 11rem;"></a> -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 MENU
@@ -92,20 +92,20 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link me-lg-3" href="javascript:void(0)" onclick="loadContent('home')">主页</a>
+                        <a class="nav-link me-lg-3" href="#" onclick="loadMarkdownFile('home')">主页</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-lg-3" href="javascript:void(0)" onclick="loadContent('blog')">博客</a>
+                        <a class="nav-link me-lg-3" href="#" onclick="loadMarkdownFile('blog')">博客</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-lg-3" href="javascript:void(0)" onclick="loadContent('experience')">过往经历</a>
+                        <a class="nav-link me-lg-3" href="#" onclick="loadMarkdownFile('experience')">过往经历</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-	
-	<!-- Top Section -->
+
+    <!-- Top Section -->
     <section class="top-section" style="background-image: url('static/assets/img/background.jpeg');">
         <div class="top-section-content">
             <div class="container px-5">
@@ -114,18 +114,27 @@
         </div>
     </section>
     <!-- Top Section -->
-	    <!-- Photo -->
+
+    <!-- Photo -->
     <div class="container px-5">
         <div id="avatar">
             <img class="shadow" src="static/assets/img/photo.png">
         </div>
     </div>
     <!-- Photo -->
-    
-	<!-- Main Content -->
-      <iframe id="main-content-iframe" class="container px-5 mt-5" src="static/html/home.html" style="width: 100%; border: none; height: 100%;"></iframe>
+		<!-- Content Container -->
+    <div id="content-container" class="container px-5 mt5 md5">
+        <!-- Content will be loaded here dynamically -->
+		
+		<!-- Home -->
+		<section class="bg-gradient-primary-to-secondary-light mt5 md5" id="home">
+			<div class="container px-5">
+				<div class="main-body" id="marked-md"></div>
+			</div>
+		</section>
+		<!-- Home -->
+    </div>
 
-	
     <!-- Footer-->
     <footer class="bg-bottom text-center py-5">
         <div class="container px-5">
@@ -133,15 +142,37 @@
                 <div id="copyright-text" class="mb-2"></div>
                 <a id="github-link" href="https://github.com/senli1073">Github</a>
                 <span class="mx-1">&middot;</span>
-                <a id="license-link" href="https://github.com/senli1073/senli1073.github.io/blob/main/LICENSE">License</a>
+                <a id="license-link"
+                    href="https://github.com/senli1073/senli1073.github.io/blob/main/LICENSE">License</a>
             </div>
         </div>
     </footer>
+	
+	<!-- JavaScript to load content dynamically -->
     <script>
-        function loadContent(page) {
-            const iframe = document.getElementById('main-content-iframe');
-            iframe.src = `static/html/${page}.html`;
-        }
+        // 定义一个函数来加载 Markdown 文件
+		async function loadMarkdownFile(code) {
+			try {
+				// 使用 fetch API 从服务器加载 Markdown 文件
+				var filePath = "contents/" + code + ".md"
+				const response = await fetch(filePath);
+				if (!response.ok) {
+					throw new Error(`Failed to load file: ${response.statusText}`);
+				}
+				// 获取 Markdown 文件的内容
+				const markdownContent = await response.text();
+				// 使用 marked.js 将 Markdown 转换为 HTML
+				const htmlContent = marked.parse(markdownContent);
+				// 将渲染后的 HTML 内容插入到页面中
+				document.getElementById('marked-md').innerHTML = htmlContent;
+			} catch (error) {
+				console.error('Error loading or rendering Markdown file:', error);
+			}
+		}
+		// 调用函数加载 Markdown 文件
+		// 假设你的 Markdown 文件路径是 'home.md'
+		loadMarkdownFile('home');
     </script>
 </body>
+
 </html>
