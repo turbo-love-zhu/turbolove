@@ -46,18 +46,18 @@ window.addEventListener('DOMContentLoaded', event => {
 
 
     // Marked
-    marked.use({ mangle: false, headerIds: false })
-    section_names.forEach((name, idx) => {
-        fetch(content_dir + name + '.md')
-            .then(response => response.text())
-            .then(markdown => {
-                const html = marked.parse(markdown);
-                document.getElementById(name + '-md').innerHTML = html;
-            }).then(() => {
-                // MathJax
-                MathJax.typeset();
-            })
-            .catch(error => console.log(error));
-    })
+    /// marked.use({ mangle: false, headerIds: false })
+    /// section_names.forEach((name, idx) => {
+    ///     fetch(content_dir + name + '.md')
+    ///         .then(response => response.text())
+    ///         .then(markdown => {
+    ///             const html = marked.parse(markdown);
+    ///             document.getElementById(name + '-md').innerHTML = html;
+    ///         }).then(() => {
+    ///             // MathJax
+    ///             MathJax.typeset();
+    ///         })
+    ///         .catch(error => console.log(error));
+    /// })
 
 }); 

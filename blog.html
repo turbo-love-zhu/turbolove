@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folder List</title>
+</head>
+<body onload="loadFolders()">
+  <h1>专题列表</h1>
+  <ul id="folder-list"></ul>
+
+  <script>
+    // 定义加载文件夹的函数
+    function loadFolders() {
+      fetch("folders.json") // 确保路径正确
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const folderList = document.getElementById('folder-list');
+          data.forEach(folderName => {
+            const li = document.createElement('li');
+            li.textContent = folderName;
+            folderList.appendChild(li);
+          });
+        })
+        .catch(error => {
+          console.error('Error loading JSON file:', error);
+          alert('Failed to load folder list. Please check the file path and console for errors.');
+        });
+    }
+  </script>
+</body>
+</html>
