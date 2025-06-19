@@ -144,10 +144,96 @@
 				// 获取 blog 文件的内容
 				const blogContent = await response.text();
 				document.getElementById('marked-md').innerHTML = blogContent;
+				
+				loadTopics();
+				
 			} catch (error) {
 				console.error('Error loading or rendering Markdown file:', error);
 			}
 		}
+		
+		// 从配置文件加载专题列表
+        async function loadTopics() {
+            try {
+                const response = await fetch('topics.json');
+                const data = await response.json();
+
+                const topicList = document.getElementById('topic-list');
+                data.topics.forEach(topic => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = '#';
+                    a.textContent = topic.name;
+                    a.onclick = () => showFiles(topic.id, topic.name);
+                    li.appendChild(a);
+                    topicList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('加载专题列表失败:', error);
+            }
+        }
+
+        // 显示文件列表
+        function showFiles(topicId, topicName) {
+            const currentTopic = document.getElementById('current-topic');
+            const fileContainer = document.getElementById('file-container');
+            const topicList = document.getElementById('topic-list');
+            const returnButton = document.querySelector('.return-button');
+
+            // 更新当前专题名称
+            currentTopic.textContent = topicName;
+
+            // 隐藏专题列表
+            topicList.style.display = 'none';
+            // 显示文件容器
+            fileContainer.style.display = 'block';
+            // 显示返回按钮
+            returnButton.style.display = 'block';
+            // 清空之前的文件列表
+            fileContainer.innerHTML = '';
+            // 加载文件列表
+            fetch('topics.json')
+                .then(response => response.json())
+                .then(data => {
+                    const files = data.files[topicId];
+                    if (files) {
+                        const fileList = document.createElement('ul');
+                        fileList.className = 'file-list';
+                        files.forEach(fileName => {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = fileName;
+                            fileList.appendChild(listItem);
+                        });
+                        fileContainer.appendChild(fileList);
+                    } else {
+                        fileContainer.innerHTML = '<p>该专题下没有文件。</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('加载文件列表失败:', error);
+                    fileContainer.innerHTML = '<p>加载文件失败。</p>';
+                });
+        }
+
+        // 返回到专题列表
+        function returnToList() {
+            const currentTopic = document.getElementById('current-topic');
+            const fileContainer = document.getElementById('file-container');
+            const topicList = document.getElementById('topic-list');
+            const returnButton = document.querySelector('.return-button');
+
+            // 重置标题
+            currentTopic.textContent = '专题列表';
+
+            // 显示专题列表
+            topicList.style.display = 'block';
+
+            // 隐藏文件容器
+            fileContainer.style.display = 'none';
+
+            // 隐藏返回按钮
+            returnButton.style.display = 'none';
+        }
     </script>
 </body>
 
