@@ -154,7 +154,7 @@
 			}
 		}
 		
-		// 从配置文件加载专题列表
+		// 从配置文件加载专栏列表
         async function loadTopics() {
             try {
                 const response = await fetch('topics.json');
@@ -171,7 +171,7 @@
                     topicList.appendChild(li);
                 });
             } catch (error) {
-                console.error('加载专题列表失败:', error);
+                console.error('加载专栏列表失败:', error);
             }
         }
 
@@ -183,10 +183,10 @@
             const returnButton = document.querySelector('.return-button');
             const fileContent = document.getElementById('file-content');
 
-            // 更新当前专题名称
+            // 更新当前专栏名称
             currentTopic.textContent = topicName;
 
-            // 隐藏专题列表
+            // 隐藏专栏列表
             topicList.style.display = 'none';
 
             // 显示文件容器
@@ -219,7 +219,7 @@
                         });
                         fileContainer.appendChild(fileList);
                     } else {
-                        fileContainer.innerHTML = '<p>该专题下没有文件。</p>';
+                        fileContainer.innerHTML = '<p>该专栏下没有文件。</p>';
                     }
                 })
                 .catch(error => {
@@ -228,7 +228,7 @@
                 });
         }
 
-        // 返回到专题列表
+        // 返回到专栏列表
         function returnToList() {
             const currentTopic = document.getElementById('current-topic');
             const fileContainer = document.getElementById('file-container');
@@ -236,8 +236,8 @@
             const returnButton = document.querySelector('.return-button');
             const returnTopicButton = document.querySelector('.return-to-topics');
             // 重置标题
-            currentTopic.textContent = '专题列表';
-            // 显示专题列表
+            currentTopic.textContent = '专栏列表';
+            // 显示专栏列表
             topicList.style.display = 'block';
             // 隐藏文件容器
             fileContainer.style.display = 'none';
@@ -245,7 +245,7 @@
             returnButton.style.display = 'none';
         }
 		
-		// 返回到专题列表
+		// 返回到专栏列表
         function returnToBlog() {
             const currentTopic = document.getElementById('current-topic');
             const fileContainer = document.getElementById('file-container');
@@ -255,7 +255,7 @@
             const blogContent = document.getElementById('blog');
             // 重置标题
             currentTopic.textContent = currentTopicName;
-            // 显示专题列表
+            // 显示专栏列表
             topicList.style.display = 'block';
             // 隐藏文件容器
             fileContainer.style.display = 'none';
@@ -272,7 +272,7 @@
 			try {
 			
 				const currentTopic = document.getElementById('current-topic');
-				// 更新当前专题名称
+				// 更新当前专栏名称
 				currentTopic.textContent = fileName;
 				// 使用 fetch API 从服务器加载 Markdown 文件
 				var filePath = "contents/blogs/" + topicName + "/" + fileName + ".md";
@@ -291,7 +291,7 @@
 				const fileContainer = document.getElementById('file-container');
                 const returnTopicButton = document.querySelector('.return-to-topics');
 				const returnButton = document.querySelector('.return-button');
-				// 显示专题列表
+				// 显示专栏列表
 				blogContent.style.display = 'block';
 				fileContainer.style.display = 'none';
 				returnTopicButton.style.display = 'block';
