@@ -4,9 +4,6 @@
 
 <code>1129216137@qq.com</code>
 
-## 内部邮箱
-<code>zhuwenchao6@hikvision.com.cn</code>
-
 ## 国内主页
 [TurboLove的个人主页-gitee](https://gitee.com/turbolove)
 
