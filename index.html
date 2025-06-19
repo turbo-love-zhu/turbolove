@@ -213,7 +213,7 @@
                             fileLink.textContent = fileName;
 							currentTopicId = topicId;
 							currentTopicName = topicName;
-                            fileLink.onclick = () => loadBlogMarkdownFile(topicName+"/"+fileName);
+                            fileLink.onclick = () => loadBlogMarkdownFile(topicName, fileName);
                             listItem.appendChild(fileLink);
                             fileList.appendChild(listItem);
                         });
@@ -268,10 +268,14 @@
         }
 		
 		    // 定义一个函数来加载 Markdown 文件
-		async function loadBlogMarkdownFile(code) {
+		async function loadBlogMarkdownFile(topicName, fileName) {
 			try {
+			
+				const currentTopic = document.getElementById('current-topic');
+				// 更新当前专题名称
+				currentTopic.textContent = fileName;
 				// 使用 fetch API 从服务器加载 Markdown 文件
-				var filePath = "contents/blogs/" + code + ".md";
+				var filePath = "contents/blogs/" + topicName + "/" + fileName + ".md";
 				const response = await fetch(filePath);
 				if (!response.ok) {
 					throw new Error(`Failed to load file: ${response.statusText}`);
