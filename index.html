@@ -282,6 +282,19 @@
 				}
 				// 获取 Markdown 文件的内容
 				const markdownContent = await response.text();
+				marked.setOptions({ 
+					gfm: true,
+					pedantic: false,
+					sanitize: false,
+					tables: true,
+					breaks: false,
+					smartLists: true,
+					smartypants: false,
+					highlight: function (code) {
+							return hljs.highlightAuto(code).value;
+							}
+					});
+				
 				// 使用 marked.js 将 Markdown 转换为 HTML
 				const htmlContent = marked.parse(markdownContent);
 				// 将渲染后的 HTML 内容插入到页面中

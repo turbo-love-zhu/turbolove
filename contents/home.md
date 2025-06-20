@@ -2,7 +2,7 @@
 
 ## 公开邮箱  
 
-<code>1129216137@qq.com</code>
+1129216137@qq.com
 
 ## 国内主页
 [TurboLove的个人主页-gitee](https://gitee.com/turbolove)
